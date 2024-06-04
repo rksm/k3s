@@ -40,8 +40,8 @@ const (
 
 	tailscaledBackend = `{
 	"Type": "extension",
-	"PostStartupCommand": "tailscale set --accept-routes --advertise-routes=%Routes%",
-	"ShutdownCommand": "tailscale down"
+	"PostStartupCommand": "/run/current-system/sw/bin/tailscale set --accept-routes --advertise-routes=%Routes%",
+	"ShutdownCommand": "/run/current-system/sw/bin/tailscale down"
 }`
 
 	wireguardNativeBackend = `{
@@ -218,6 +218,12 @@ func createFlannelConf(nodeConfig *config.Node) error {
 			return fmt.Errorf("incorrect netMode for flannel tailscale backend")
 		}
 		backendConf = strings.ReplaceAll(tailscaledBackend, "%Routes%", routes)
+
+		var env = os.Environ()
+		for _, e := range env {
+			logrus.Infof(e)
+		}
+
 	case config.FlannelBackendWireguardNative:
 		mode, ok := backendOptions["Mode"]
 		if !ok {
