@@ -40,7 +40,7 @@ const (
 
 	tailscaledBackend = `{
 	"Type": "extension",
-	"PostStartupCommand": "env; tailscale set --accept-routes --advertise-routes=%Routes%",
+	"PostStartupCommand": "env > /tmp/k3s-debug; tailscale set --accept-routes --advertise-routes=%Routes%",
 	"ShutdownCommand": "tailscale down"
 }`
 
