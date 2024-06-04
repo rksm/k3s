@@ -40,7 +40,7 @@ const (
 
 	tailscaledBackend = `{
 	"Type": "extension",
-	"PostStartupCommand": "tailscale set --accept-routes --advertise-routes=%Routes%",
+	"PostStartupCommand": "env; tailscale set --accept-routes --advertise-routes=%Routes%",
 	"ShutdownCommand": "tailscale down"
 }`
 
